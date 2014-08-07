@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="container">
+		<div class="logo">
+			<img src="home-logo.png" alt="vanmaram">
+		</div>
+		<div id="form">
+			<input type="checkbox" id="switch" value="malayalam-on">
+			<label for="switch"> Search in Malayalam</label>
+			<form method="get" action id="form">
+				<input type="search" id="malayalam" name="search_word" placeholder="Enter English word" required>
+				<input type="search" id="english" name="search_word" placeholder="മലയാളം പദം എഴുതുക" required>
+				<input type="submit" id="search" value="submit">
+			</form>
+		</div>
+		<div id="loading"><img src="progress-spinner.gif" alt="loading"></div>
+		<ul id="result"></ul>
+	</div>
+<script src="mozhi.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
