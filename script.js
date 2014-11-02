@@ -1,3 +1,39 @@
+function customersController($scope, $http) {
+    $scope.search = function() {        
+        $scope.url = 'http://www.vanmaram.com/json_result.php?en='+$scope.keywords; // The url of our search
+        $http.get($scope.url).
+        success(function(data, status) {
+            $scope.status = status;
+            $scope.data = data;
+            $scope.result = data; // Show result from server in <li> element
+            $scope.suggetionresult = null;
+        }).
+        error(function(data, status) {
+            $scope.data = data || "Request failed";
+            $scope.status = status;         
+        });
+    };
+    $scope.suggestword = function (argument) {
+        $scope.url = 'http://www.vanmaram.com/ajax_json_suggestion.php?en='+$scope.keywords; // The url of our search
+        $http.get($scope.url).
+        success(function(data, status) {
+            $scope.status = status;
+            $scope.data = data;
+            $scope.suggetionresult = data; // Show result from server in <li> element
+            $scope.result = null;        
+        }).
+        error(function(data, status) {
+            $scope.data = data || "Request failed";
+            $scope.status = status; 
+        });
+    };
+}
+
+
+
+
+
+
 var searchButton = document.getElementById("search");
 var switchSearch = document.getElementById("switch");
 var forMalayalam = document.getElementById('malayalam');
