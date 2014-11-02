@@ -113,3 +113,22 @@ li{
 	margin: 3px 0;
 	font-size: 16px;
 }
+#suggestion{
+	margin-top: 10px;
+}
+a{
+	color: #428bca;
+	text-decoration: none;
+	line-height: 18px;
+	cursor: pointer;
+
+}
+	a:hover{
+		text-decoration: underline;
+	}
+	a:after{
+		content: ',';
+	}
+	a:last-child:after{
+		content: '';
+	}

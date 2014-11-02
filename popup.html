@@ -29,8 +29,8 @@
 			<ul ng-if='result.length'>
 			  <li ng-repeat="word in result | limitTo:9">{{ word }}</li>
 			</ul>
-			<div ng-if='suggetionresult.length > 1'>
-			  <a ng-repeat="word in suggetionresult | limitTo:9" href="#{{ word }}"> {{ word }} </a>
+			<div id="suggestion" ng-if='suggetionresult.length > 1'>
+				Suggestions: <a ng-repeat="word in suggetionresult | limitTo:9">{{ word }}</a>
 			</div>
 		</div>
 	</div>
