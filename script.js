@@ -1,6 +1,9 @@
 function customersController($scope, $http) {
-    $scope.search = function() {        
-        $scope.url = 'http://www.vanmaram.com/json_result.php?en='+$scope.keywords; // The url of our search
+    $scope.search = function(searchUrl) {
+        //Check for searchUrl, otherwise use keywords.
+        console.log(searchUrl);
+        var searchUrl = typeof(searchUrl) != 'undefined' ? searchUrl : $scope.keywords;
+        $scope.url = 'http://www.vanmaram.com/json_result.php?en='+searchUrl;
         $http.get($scope.url).
         success(function(data, status) {
             $scope.status = status;
@@ -10,7 +13,7 @@ function customersController($scope, $http) {
         }).
         error(function(data, status) {
             $scope.data = data || "Request failed";
-            $scope.status = status;         
+            $scope.status = status;
         });
     };
     $scope.suggestword = function (argument) {
@@ -20,11 +23,11 @@ function customersController($scope, $http) {
             $scope.status = status;
             $scope.data = data;
             $scope.suggetionresult = data; // Show result from server in <li> element
-            $scope.result = null;        
+            $scope.result = null;
         }).
         error(function(data, status) {
             $scope.data = data || "Request failed";
-            $scope.status = status; 
+            $scope.status = status;
         });
     };
 }

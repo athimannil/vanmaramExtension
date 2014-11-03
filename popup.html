@@ -30,7 +30,7 @@
 			  <li ng-repeat="word in result | limitTo:9">{{ word }}</li>
 			</ul>
 			<div id="suggestion" ng-if='suggetionresult.length > 1'>
-				Suggestions: <a ng-repeat="word in suggetionresult | limitTo:9">{{ word }}</a>
+				Suggestions: <a ng-repeat="word in suggetionresult | limitTo:9" ng-click="search(word)">{{ word }}</a>
 			</div>
 		</div>
 	</div>
