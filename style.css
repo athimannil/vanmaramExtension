@@ -116,6 +116,17 @@ li{
 #suggestion{
 	margin-top: 10px;
 }
+#suggestion li{
+	float: left;
+	margin: 3px;
+}
+#suggestion li:after{
+	content: ','
+}
+#suggestion li:first-child:after,
+#suggestion li:last-child:after{
+	content: '';
+}
 a{
 	color: #428bca;
 	text-decoration: none;
@@ -125,10 +136,4 @@ a{
 }
 	a:hover{
 		text-decoration: underline;
-	}
-	a:after{
-		content: ',';
-	}
-	a:last-child:after{
-		content: '';
 	}

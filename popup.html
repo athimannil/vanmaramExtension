@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app ng-csp>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="style.css">
@@ -9,29 +9,22 @@
 		<div class="logo">
 			<img src="home-logo.png" alt="vanmaram">
 		</div>
-		<div id="form">
-			<input type="checkbox" id="switch" value="malayalam-on">
+		<div id="form" ng-controller="customersController"> 
+			<input type="checkbox" id="switch" value="malayalam-on" ng-model="languagevalue">
 			<label for="switch"> Search in Malayalam</label>
-			<form method="get" action id="form">
-				<input type="search" id="malayalam" name="search_word" placeholder="Enter English word" required>
-				<input type="search" id="english" name="search_word" placeholder="മലയാളം പദം എഴുതുക" required>
-				<input type="submit" id="search" value="submit">
-			</form>
-		</div>
-		<div id="loading"><img src="progress-spinner.gif" alt="loading"></div>
-		<ul id="result"></ul>
-		<!-- search form in AngularJS -->
-		<div ng-app="" ng-csp ng-controller="customersController"> 
-			<form style="position:relative;" ng-submit="search()">
-				<input type="search" placeholder="Type english word" ng-model="keywords" ng-change="suggestword()">
+			<form style="position:relative;" ng-submit="search()" id="form">
+				<input type="search" id="english" placeholder="മലയാളം പദം എഴുതുക" ng-model="mlkeywords" ng-change="suggestword()">
+				<input type="search" id="malayalam" placeholder="Enter English word" ng-model="enkeywords" ng-change="suggestword()">
 				<input type="submit" value="Search">
 			</form>
 			<ul ng-if='result.length'>
 			  <li ng-repeat="word in result | limitTo:9">{{ word }}</li>
+			  <li ng-if="result.length > 9"><a target='_blank' href='http://www.vanmaram.com/malayalam/{{searchword}}'>കൂടുതല്‍ >></a></li>
 			</ul>
-			<div id="suggestion" ng-if='suggetionresult.length > 1'>
-				Suggestions: <a ng-repeat="word in suggetionresult | limitTo:9" ng-click="search(word)">{{ word }}</a>
-			</div>
+			<ul id="suggestion" ng-if='suggetionresult.length > 1'>
+				<li>Suggestions:</li>
+				<li ng-repeat="word in suggetionresult | limitTo:9"><a ng-click="search(word)">{{ word }}</a></li>
+			</ul>
 		</div>
 	</div>
 <script src="mozhi.min.js"></script>
