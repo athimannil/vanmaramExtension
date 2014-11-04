@@ -44,6 +44,9 @@ function customersController($scope, $http) {
         });
         
     };
+    $scope.manglish = function () {
+        transliterateKey();
+    };
 }
 
 var switchSearch = document.getElementById("switch");
@@ -59,7 +62,4 @@ switchSearch.onchange = function(){
         forEnglish.style.display = 'none';
         forMalayalam.style.display = 'block';
     }
-};
-document.getElementById('english').onkeypress = function(e) {
-    transliterateKey(e);
 };

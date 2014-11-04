@@ -13,7 +13,7 @@
 			<input type="checkbox" id="switch" value="malayalam-on" ng-model="languagevalue">
 			<label for="switch"> Search in Malayalam</label>
 			<form style="position:relative;" ng-submit="search()" id="form">
-				<input type="search" id="english" placeholder="മലയാളം പദം എഴുതുക" ng-model="mlkeywords" ng-change="suggestword()">
+				<input type="search" id="english" placeholder="മലയാളം പദം എഴുതുക" ng-model="mlkeywords" ng-change="suggestword()" ng-keypress="manglish()">
 				<input type="search" id="malayalam" placeholder="Enter English word" ng-model="enkeywords" ng-change="suggestword()">
 				<input type="submit" value="Search">
 			</form>
