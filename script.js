@@ -48,18 +48,3 @@ function customersController($scope, $http) {
         transliterateKey();
     };
 }
-
-var switchSearch = document.getElementById("switch");
-var forMalayalam = document.getElementById('malayalam');
-var forEnglish = document.getElementById('english');
-switchSearch.onchange = function(){
-    if(switchSearch.checked){
-        forMalayalam.value = "";
-        forMalayalam.style.display = 'none';
-        forEnglish.style.display = 'block';
-    }else{
-        forEnglish.value = "";
-        forEnglish.style.display = 'none';
-        forMalayalam.style.display = 'block';
-    }
-};

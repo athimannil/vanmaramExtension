@@ -72,9 +72,6 @@ input[type="search"]:focus{
 input[type="search"]:focus{
 	outline: 0;
 }
-#english{
-	display: none;
-}
 input[type="submit"]{
 	height: 100%;
 	background-color: #53a93f;
