@@ -10,7 +10,7 @@
 			<img src="home-logo.png" alt="vanmaram">
 		</div>
 		<div id="form" ng-controller="customersController"> 
-			<input type="checkbox" id="switch" ng-model="languagevalue">
+			<input type="checkbox" id="switch" ng-model="languagevalue" ng-change="toggleInput(item)">
 			<label for="switch"> Search in Malayalam</label>
 			<form style="position:relative;" ng-submit="search()" id="form">
 				<input type="search" id="english" placeholder="മലയാളം പദം എഴുതുക" ng-model="mlkeywords" ng-change="suggestword()" ng-show="languagevalue" ng-keypress="manglish()">

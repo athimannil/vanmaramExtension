@@ -1,5 +1,11 @@
 function customersController($scope, $http) {
     var target, searchword;
+    // Toggle input clear
+    $scope.toggleInput = function (argument) {
+        $scope.enkeywords = '';
+        // $scope.enkeywords = '';
+        document.getElementById('english').value = '';
+    };
     $scope.search = function(searchUrl) {
         //Check for searchUrl, otherwise use keywords.
         if ($scope.languagevalue){
