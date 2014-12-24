@@ -2,18 +2,18 @@ function customersController($scope, $http) {
     var target, searchword;
     // Toggle input clear
     $scope.toggleInput = function (argument) {
-        $scope.enkeywords = '';
-        // $scope.enkeywords = '';
-        document.getElementById('english').value = '';
+        $scope.cleardata();
     };
     $scope.search = function(searchUrl) {
         //Check for searchUrl, otherwise use keywords.
         if ($scope.languagevalue){
             target = 'ml';
             searchUrl = typeof(searchUrl) != 'undefined' ? searchUrl : document.getElementById('english').value;
+            document.getElementById('english').value = searchUrl;
         }else{
             target = 'en';
             searchUrl = typeof(searchUrl) != 'undefined' ? searchUrl : $scope.enkeywords;
+            $scope.enkeywords = searchUrl;
         }
 
         $scope.url = 'http://www.vanmaram.com/json_result.php?'+target+'='+searchUrl;
@@ -49,6 +49,13 @@ function customersController($scope, $http) {
             $scope.status = status;
         });
         
+    };
+    $scope.cleardata = function (argument) {
+        $scope.enkeywords = '';
+        // $scope.enkeywords = '';
+        document.getElementById('english').value = '';
+        $scope.result = null;
+        $scope.suggetionresult = null;
     };
     $scope.manglish = function () {
         transliterateKey();
