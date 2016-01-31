@@ -1,6 +1,6 @@
 {
     "name": "Vanmaram English Malayalam dictionary",
-    "version": "2.5",
+    "version": "2.5.1",
     "manifest_version": 2,
     "description": "Vanmaram English to Malayalam dictionary and Malayalam to English reverse dictionary with thousands of words.",
     "icons": { 
