@@ -16,7 +16,7 @@ function customersController($scope, $http) {
             $scope.enkeywords = searchUrl;
         }
 
-        $scope.url = 'http://www.vanmaram.com/json_result.php?'+target+'='+searchUrl;
+        $scope.url = 'https://www.vanmaram.com/json_result.php?'+target+'='+searchUrl;
         $http.get($scope.url).
         success(function(data, status) {
             $scope.status = status;
@@ -37,7 +37,7 @@ function customersController($scope, $http) {
             target = 'en';
             searchUrl = $scope.enkeywords;
         }
-        $scope.url = 'http://www.vanmaram.com/ajax_json_suggestion.php?'+target+'='+searchUrl; // The url of our search
+        $scope.url = 'https://www.vanmaram.com/ajax_json_suggestion.php?'+target+'='+searchUrl; // The url of our search
         $http.get($scope.url).
         success(function(data, status) {
             $scope.status = status;

@@ -1,6 +1,6 @@
 {
     "name": "Vanmaram English Malayalam dictionary",
-    "version": "2.5.1",
+    "version": "2.5.2",
     "manifest_version": 2,
     "description": "Vanmaram English to Malayalam dictionary and Malayalam to English reverse dictionary with thousands of words.",
     "icons": { 
@@ -8,8 +8,8 @@
         "48": "icon48.png",
         "128": "icon128.png"
     },
-    "homepage_url": "http://www.vanmaram.com",
-    "permissions": ["http://www.vanmaram.com/"],
+    "homepage_url": "https://www.vanmaram.com",
+    "permissions": ["https://www.vanmaram.com/"],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "browser_action": {
         "default_icon": {
