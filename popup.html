@@ -1,34 +1,28 @@
 <!DOCTYPE html>
-<html ng-app>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-	<div id="container">
-		<div class="logo">
-			<img src="home-logo.png" alt="vanmaram">
-		</div>
-		<div id="form" ng-controller="customersController"> 
-			<input type="checkbox" id="switch" ng-model="languagevalue" ng-change="toggleInput(item)">
-			<label for="switch"> Search in Malayalam</label>
-			<form style="position:relative;" ng-submit="search()" id="form">
-				<input type="search" id="english" placeholder="മലയാളം പദം എഴുതുക" ng-model="mlkeywords" ng-change="suggestword()" ng-show="languagevalue" ng-keypress="manglish()" autocomplete="off">
-				<input type="search" id="malayalam" placeholder="Enter English word" ng-model="enkeywords" ng-change="suggestword()" ng-hide="languagevalue" autocomplete="off">
-				<input type="submit" value="Search">
-			</form>
-			<ul ng-if='result.length'>
-			  <li ng-repeat="word in result | limitTo:9">{{ word }}</li>
-			  <li ng-if="result.length > 9"><a target='_blank' href='https://www.vanmaram.com/malayalam/{{searchword}}'>കൂടുതല്‍ >></a></li>
-			</ul>
-			<ul id="suggestion" ng-if='suggetionresult.length > 1'>
-				<li>Suggestions:</li>
-				<li ng-repeat="word in suggetionresult | limitTo:9"><a ng-click="search(word)">{{ word }}</a></li>
-			</ul>
-		</div>
+<body class="container">
+	<div class="logo">
+		<img src="home-logo.png" alt="vanmaram">
 	</div>
-<script src="mozhi.min.js"></script>
-<script src="angular.min.js"></script>
+	<div class="search">
+		<form id="form" class="search-form">
+			<input
+				type="search"
+				id="search"
+				placeholder=""
+				autocomplete="off"
+			/>
+			<input type="submit" value="Search">
+		</form>
+	</div>
+	<div class="result">
+		<ul id="result" class="result"></ul>
+		<ul id="suggetionresult" class="suggestion"></ul>
+	</div>
 <script src="script.js"></script>
 </body>
 </html>

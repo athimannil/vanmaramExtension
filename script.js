@@ -1,63 +1,113 @@
-function customersController($scope, $http) {
-    var target, searchword;
-    // Toggle input clear
-    $scope.toggleInput = function (argument) {
-        $scope.cleardata();
-    };
-    $scope.search = function(searchUrl) {
-        //Check for searchUrl, otherwise use keywords.
-        if ($scope.languagevalue){
-            target = 'ml';
-            searchUrl = typeof(searchUrl) != 'undefined' ? searchUrl : document.getElementById('english').value;
-            document.getElementById('english').value = searchUrl;
-        }else{
-            target = 'en';
-            searchUrl = typeof(searchUrl) != 'undefined' ? searchUrl : $scope.enkeywords;
-            $scope.enkeywords = searchUrl;
-        }
+document.addEventListener('DOMContentLoaded', function() {
+	document.getElementById('search').addEventListener('input', suggestword);
 
-        $scope.url = 'https://www.vanmaram.com/json_result.php?'+target+'='+searchUrl;
-        $http.get($scope.url).
-        success(function(data, status) {
-            $scope.status = status;
-            $scope.searchword = searchUrl;
-            $scope.result = data; // Show result from server in <li> element
-            $scope.suggetionresult = null;
-        }).
-        error(function(data, status) {
-            $scope.data = data || "Request failed";
-            $scope.status = status;
-        });
-    };
-    $scope.suggestword = function () {
-        if ($scope.languagevalue){
-            target = 'ml';
-            searchUrl = $scope.mlkeywords;
-        }else{
-            target = 'en';
-            searchUrl = $scope.enkeywords;
-        }
-        $scope.url = 'https://www.vanmaram.com/ajax_json_suggestion.php?'+target+'='+searchUrl; // The url of our search
-        $http.get($scope.url).
-        success(function(data, status) {
-            $scope.status = status;
-            $scope.suggetionresult = data; // Show result from server in <li> element
-            $scope.result = null;
-        }).
-        error(function(data, status) {
-            $scope.data = data || "Request failed";
-            $scope.status = status;
-        });
-        
-    };
-    $scope.cleardata = function (argument) {
-        $scope.enkeywords = '';
-        // $scope.enkeywords = '';
-        document.getElementById('english').value = '';
-        $scope.result = null;
-        $scope.suggetionresult = null;
-    };
-    $scope.manglish = function () {
-        transliterateKey();
-    };
-}
+	function suggestword() {
+			const search = document.getElementById('search').value;
+			console.log("search", search);
+			if (search.length > 2) {
+					if (/[\u0D00-\u0D7F]/.test(search)) {
+							target = 'ml';
+					} else if (/[A-Za-z]/.test(search)) {
+							target = 'en';
+					} else {
+							console.error('Unknown script');
+							return;
+					}
+
+					let url = 'https://www.vanmaram.com/ajax_json_suggestion.php?' + target + '=' + search;
+					fetch(url)
+							.then(response => response.json())
+							.then(data => {
+									if (data.length > 3) {
+											displaySuggestions(data, 'suggetionresult', 9);
+											clearResults();
+									} else {
+											clearSuggestions();
+									}
+							})
+							.catch(error => {
+									console.error('Request failed', error);
+							});
+			} else {
+					clearSuggestions();
+			}
+	}
+
+	function displaySuggestions(data, elementId, displayItems = 20) {
+			let resultElement = document.getElementById(elementId);
+			resultElement.innerHTML = '<li>Suggestions:</li>';
+			data.slice(0, displayItems).forEach(word => {
+					let li = document.createElement('li');
+					let a = document.createElement('a');
+					a.textContent = word;
+					a.href = '#';
+					a.addEventListener('click', function(event) {
+							event.preventDefault();
+							search(word);
+					});
+					li.appendChild(a);
+					resultElement.appendChild(li);
+			});
+	};
+
+
+	document.getElementById('form').addEventListener('submit', function(event) {
+			event.preventDefault();
+			search();
+	});
+
+	function search(word = null) {
+			const search = word || document.getElementById('search').value;
+			let langTarget;
+			if (/[\u0D00-\u0D7F]/.test(search)) {
+					langTarget = 'ml';
+			} else if (/[A-Za-z]/.test(search)) {
+					langTarget = 'en';
+			} else {
+					console.error('Unknown script');
+					return;
+			}
+
+			let url = 'https://www.vanmaram.com/json_result.php?' + langTarget + '=' + search;
+			fetch(url)
+					.then(response => response.json())
+					.then(data => {
+							displayResults(data, 'result', langTarget, search, 4);
+							clearSuggestions();
+					})
+					.catch(error => {
+							console.error('Request failed', error);
+							// Consider adding user feedback here
+					});
+	};
+
+	function displayResults(data, elementId, language, search, displayItems = 20) {
+			let resultElement = document.getElementById(elementId);
+			resultElement.innerHTML = '';
+			console.log("data in displayResults", data);
+			console.log(data, elementId, language, search, displayItems);
+			data.slice(0, displayItems).forEach(word => {
+					console.log("word", word);
+					let li = document.createElement('li');
+					li.textContent = word;
+					resultElement.appendChild(li);
+			});
+			// Add a link to the full search results
+			let li = document.createElement('li');
+			li.className = 'more-results';
+			let link = document.createElement('a');
+			link.target = '_blank';
+			link.href = `https://www.vanmaram.com/${language}/${search}`;
+			link.innerHTML = 'കൂടുതല്‍ &gt;&gt;';
+			li.appendChild(link);
+			resultElement.appendChild(li);
+	}
+
+	function clearResults() {
+			document.getElementById('result').innerHTML = '';
+	}
+
+	function clearSuggestions() {
+			document.getElementById('suggetionresult').innerHTML = '';
+	}
+});
